@@ -1,31 +1,23 @@
-# Git 開發流程
+# Git 開發流程 (單人開發版本)
 
-## 1. 分支策略
-- `main`: 主分支，穩定版本
-- `develop`: 開發分支
-- `feature/*`: 功能分支
-- `bugfix/*`: 錯誤修復分支
-- `release/*`: 發布分支
+## 1. 簡化分支策略
+- `main`: 主分支，保持穩定可部署狀態
+- `feature/*`: 功能開發分支
+
+說明：單人開發不需要複雜的分支管理，移除 develop 和 release 分支，直接在 feature 分支開發後合併到 main。
 
 ## 2. 工作流程
 
 ### 功能開發
 ```bash
-# 從 develop 建立功能分支
-git checkout develop
+# 從 main 建立功能分支
+git checkout main
 git checkout -b feature/auth
 
-# 開發完成後合併回 develop
-git checkout develop
-git merge feature/auth
-```
-
-### 版本發布
-```bash
-# 準備發布
+# 開發完成後合併回 main
 git checkout main
-git merge develop
-git tag v1.0.0
+git merge feature/auth
+git tag v0.1.0  # 如果是重要功能完成
 ```
 
 ## 3. Commit 規範
@@ -46,7 +38,45 @@ git commit -m "fix: resolve login validation issue"
 git commit -m "docs: update API documentation"
 ```
 
-## 4. 專案結構
+## 4. 開發建議
+
+1. **分支使用**
+   - 新功能開發時才建立 feature 分支
+   - 小改動可直接在 main 分支進行
+   - 完成功能立即合併回 main
+
+2. **提交規範**
+   - 保持提交訊息清晰簡潔
+   - 一個提交專注於一個改動
+   - 頻繁小量提交，方便追蹤進度
+
+3. **版本控制**
+   - 完成重要功能時使用 tag 標記
+   - 使用語意化版本號（如 v0.1.0）
+   - 在 README.md 維護簡單的更新日誌
+
+## 5. 實用指令
+```bash
+# 查看分支狀態
+git status
+
+# 建立新功能分支
+git checkout -b feature/new-feature
+
+# 儲存當前修改
+git stash
+
+# 還原修改
+git stash pop
+
+# 查看提交歷史
+git log --oneline --graph
+
+# 修改最後一次提交
+git commit --amend
+```
+
+## 6. 專案結構
 ```
 mindscape/
 ├── docs/
@@ -61,20 +91,4 @@ mindscape/
 ├── .gitignore
 ├── README.md
 └── docker-compose.yml
-```
-
-## 5. 開發建議
-1. **分支管理**
-   - 功能開發都在 feature 分支進行
-   - 定期將 develop 分支合併到功能分支
-   - 功能完成才合併回 develop
-
-2. **提交規範**
-   - 保持提交訊息清晰簡潔
-   - 一個提交只做一件事
-   - 經常性小提交優於偶爾大提交
-
-3. **版本控制**
-   - 使用語意化版本號
-   - 重要節點打上 tag
-   - 維護清晰的更新日誌 
+``` 
