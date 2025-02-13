@@ -17,4 +17,7 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 設置工作目錄
-WORKDIR /var/www/html 
+WORKDIR /var/www/html
+
+# 安裝 Redis PHP 擴展
+RUN pecl install redis && docker-php-ext-enable redis 

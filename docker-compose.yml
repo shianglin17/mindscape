@@ -61,6 +61,14 @@ services:
       - VITE_HOST=0.0.0.0    # 允許外部訪問
     tty: true                 # 保持終端開啟
 
+  redis:
+    image: redis:alpine
+    container_name: mindscape-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - mindscape-network
+
 # 網路配置
 networks:
   mindscape-network:    # 自定義網路名稱

@@ -8,6 +8,12 @@
 composer.lock
 package-lock.json
 
+# Vite & Frontend
+**/vite/deps
+**/vite/deps/_metadata.json
+**/vite/deps/*.js
+**/vite/deps/*.map
+
 # Environment files
 **/.env
 **/.env.*
@@ -19,6 +25,14 @@ package-lock.json
 public/hot
 public/storage
 storage/*.key
+
+# Laravel Cache
+**/bootstrap/cache/*.php
+**/storage/framework/views/*.php
+**/storage/framework/cache/**
+**/storage/framework/sessions/**
+**/storage/framework/testing/**
+**/storage/logs/*.log
 
 # IDE & Editor files
 .idea/
