@@ -1,0 +1,36 @@
+# Docker
+.docker/mysql/data/
+
+# Dependencies
+**/node_modules
+**/vendor
+composer.lock
+package-lock.json
+
+# Environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# Build files
+**/dist
+**/build
+public/hot
+public/storage
+storage/*.key
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+phpunit.xml
+.phpunit.result.cache
+coverage/
