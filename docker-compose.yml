@@ -1,8 +1,7 @@
-version: '3.8'  # Docker Compose 版本
-
 services:
   # PHP 後端服務
   backend:
+    container_name: mindscape-backend  # 指定容器名稱
     build:
       context: .              # 構建上下文（當前目錄）
       dockerfile: .docker/php/Dockerfile  # PHP 鏡像的構建文件
@@ -10,9 +9,17 @@ services:
       - ./backend:/var/www/html  # 掛載本地程式碼到容器，實現即時更新
     networks:
       - mindscape-network     # 加入自定義網路，實現容器間通信
+    environment:
+      DB_CONNECTION: mysql      # 指定使用 MySQL
+      DB_HOST: mysql           # 使用服務名稱作為主機名
+      DB_PORT: 3306
+      DB_DATABASE: mindscape
+      DB_USERNAME: mindscape
+      DB_PASSWORD: secret
 
   # Nginx Web 服務器
   nginx:
+    container_name: mindscape-nginx    # 指定容器名稱
     image: nginx:alpine      # 使用官方 Alpine 版本的 Nginx 鏡像（體積小）
     ports:
       - "8000:80"           # 端口映射：主機端口:容器端口
@@ -39,6 +46,7 @@ services:
 
   # 前端開發服務
   frontend:
+    container_name: mindscape-frontend # 指定容器名稱
     build:
       context: .
       dockerfile: .docker/node/Dockerfile  # Node.js 環境構建文件
@@ -49,6 +57,9 @@ services:
     command: sh -c "npm install && npm run dev"  # 容器啟動時執行的命令
     networks:
       - mindscape-network
+    environment:
+      - VITE_HOST=0.0.0.0    # 允許外部訪問
+    tty: true                 # 保持終端開啟
 
 # 網路配置
 networks:
