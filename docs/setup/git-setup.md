@@ -6,7 +6,48 @@
 
 說明：單人開發不需要複雜的分支管理，移除 develop 和 release 分支，直接在 feature 分支開發後合併到 main。
 
-## 2. 工作流程
+## 2. Commit 訊息規範 (Conventional Commits)
+
+### 格式
+```bash
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### 類型 (Type)
+- `feat`: 新功能
+- `fix`: 錯誤修復
+- `docs`: 文檔更新
+- `style`: 程式碼格式調整（不影響代碼運行）
+- `refactor`: 重構（既不修復錯誤也不添加功能）
+- `perf`: 性能優化
+- `test`: 測試相關
+- `chore`: 構建過程或輔助工具的變動
+- `ci`: CI/CD 相關更改
+- `revert`: 回退先前的提交
+
+### 範例
+```bash
+# 新功能
+feat(auth): implement user authentication system
+
+# 錯誤修復
+fix(login): resolve password validation issue
+
+# 文檔更新
+docs(readme): update installation guide
+
+# 重構
+refactor(api): simplify error handling logic
+
+# 構建相關
+chore(docker): update nginx configuration
+```
+
+## 3. 工作流程
 
 ### 功能開發
 ```bash
@@ -20,24 +61,6 @@ git merge feature/auth
 git tag v0.1.0  # 如果是重要功能完成
 ```
 
-## 3. Commit 規範
-使用規範化的 commit message：
-
-- `feat`: 新功能
-- `fix`: 錯誤修復
-- `docs`: 文檔更新
-- `style`: 程式碼格式調整
-- `refactor`: 重構
-- `test`: 測試相關
-- `chore`: 建置/工具相關
-
-範例：
-```bash
-git commit -m "feat: implement user authentication"
-git commit -m "fix: resolve login validation issue"
-git commit -m "docs: update API documentation"
-```
-
 ## 4. 開發建議
 
 1. **分支使用**
@@ -46,8 +69,9 @@ git commit -m "docs: update API documentation"
    - 完成功能立即合併回 main
 
 2. **提交規範**
-   - 保持提交訊息清晰簡潔
+   - 遵循 Conventional Commits 規範
    - 一個提交專注於一個改動
+   - 提交訊息清晰明確
    - 頻繁小量提交，方便追蹤進度
 
 3. **版本控制**
